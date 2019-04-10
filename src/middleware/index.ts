@@ -1,5 +1,5 @@
-import { handleCors } from "./corsHandler";
-import { handleBodyRequestParsing } from "./jsonParser";
-import { handleCompression } from "./compressionHandler";
+import * as cors from "cors";
+import * as compression from "compression";
+import * as parser from "body-parser";
   
-export default [handleCors, handleBodyRequestParsing, handleCompression];
+export default [cors({ credentials: true, origin: true }), parser.urlencoded({ extended: true }), parser.json(), compression()];
