@@ -1,5 +1,7 @@
 import * as compression from "compression";
-import { Router } from "express";
+import { NextFunction, Request, Response } from "express";
 
-export const handleCompression = (router: Router) => 
-    router.use(compression());
+export const handleCompression = (request: Request, response: Response, next: NextFunction) => {
+    compression();
+    next();
+    };

@@ -1,12 +1,12 @@
-import * as express  from "express";
+import { Router } from "express";
 
 export abstract class AbstractRouter {
     public path: string;
-    public router: express.Express;
+    public router: Router;
 
     constructor(path: string) {
         this.path = path;
-        this.router = express();
+        this.router = Router();
     }
 
     public abstract configure(): void;
