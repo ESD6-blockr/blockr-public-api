@@ -1,4 +1,3 @@
-import * as http from "http";
 import * as express from "express";
 import middleware from "./middleware";
 import { AbstractRouter } from "./routers/abstractrouter";
