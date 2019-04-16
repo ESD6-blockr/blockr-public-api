@@ -1,14 +1,14 @@
 import { AbstractRouter } from "./abstractrouter";
-import { TransactionController } from "../controllers";
+import { TransactionService } from "../services";
 import { NextFunction, Request, Response } from "express-serve-static-core";
 
 export class TransactionRouter extends AbstractRouter {
 
-    transactionController: TransactionController;
+    transactionService: TransactionService;
 
     public configure(): void {
-        this.transactionController = new TransactionController();
-        this.router.get("/", this.getAllTransactions());
+        this.transactionService = new TransactionService();
+        this.router.get("/transactions", this.getAllTransactions());
         this.router.get("/", this.getTransactionsByAmount());
         this.router.get("/", this.getTransactionsByDate());
         this.router.get("/", this.getTransactionsByPeriod());
@@ -16,7 +16,7 @@ export class TransactionRouter extends AbstractRouter {
         this.router.get("/", this.getTransactionsBySender());
         this.router.get("/", this.getTransactionsByWallet());
         this.router.get("/", this.getTransactionsFromTo());
-        this.router.get("/", this.addTransaction());
+        this.router.post("/transactions", this.addTransaction());
     }
 
     constructor(path: string) {
@@ -25,55 +25,55 @@ export class TransactionRouter extends AbstractRouter {
     
     private getAllTransactions(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.getAllTransactions(request, response, next);
+            this.transactionService.getAllTransactions(request, response, next);
         };
     }
 
     private getTransactionsByAmount(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.getTransactionsByAmount(request, response, next);
+            this.transactionService.getTransactionsByAmount(request, response, next);
         };
     }
 
     private getTransactionsByDate(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.getTransactionsByDate(request, response, next);
+            this.transactionService.getTransactionsByDate(request, response, next);
         };
     }
 
     private getTransactionsByPeriod(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.getTransactionsByPeriod(request, response, next);
+            this.transactionService.getTransactionsByPeriod(request, response, next);
         };
     }
 
     private getTransactionsByRecipient(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.getTransactionsByRecipient(request, response, next);
+            this.transactionService.getTransactionsByRecipient(request, response, next);
         };
     }
 
     private getTransactionsBySender(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.getTransactionsBySender(request, response, next);
+            this.transactionService.getTransactionsBySender(request, response, next);
         };
     }
 
     private getTransactionsByWallet(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.getTransactionsByWallet(request, response, next);
+            this.transactionService.getTransactionsByWallet(request, response, next);
         };
     }
 
     private getTransactionsFromTo(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.getTransactionsFromTo(request, response, next);
+            this.transactionService.getTransactionsFromTo(request, response, next);
         };
     }
 
     private addTransaction(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionController.addTransaction(request, response, next);
+            this.transactionService.addTransaction(request, response, next);
         };
     }
 }

@@ -1,14 +1,14 @@
 import { AbstractRouter } from "./abstractrouter";
-import { BlockController } from "../controllers";
+import { BlockService } from "../services";
 import { NextFunction, Request, Response } from "express-serve-static-core";
 
 export class BlockRouter extends AbstractRouter {
 
-    blockController: BlockController;
+    blockService: BlockService;
 
     public configure(): void {
-        this.blockController = new BlockController();
-        this.router.get("/", this.getAllBlocks());
+        this.blockService = new BlockService();
+        this.router.get("/blocks", this.getAllBlocks());
         this.router.get("/", this.getBlockByNumer());
         this.router.get("/", this.getBlockByHash());
         this.router.get("/", this.getBlocksByPeriod());
@@ -25,55 +25,55 @@ export class BlockRouter extends AbstractRouter {
 
     private getAllBlocks(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getAllBlocks(request, response, next);
+            this.blockService.getAllBlocks(request, response, next);
         };
     }
     
     private getBlockByNumer(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getBlockByNumer(request, response, next);
+            this.blockService.getBlockByNumer(request, response, next);
         };
     }
 
     private getBlockByHash(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getBlockByHash(request, response, next);
+            this.blockService.getBlockByHash(request, response, next);
         };
     }
 
     private getBlocksByPeriod(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getBlocksByPeriod(request, response, next);
+            this.blockService.getBlocksByPeriod(request, response, next);
         };
     }
 
     private getBlocksByDate(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getBlocksByDate(request, response, next);
+            this.blockService.getBlocksByDate(request, response, next);
         };
     }
 
     private getBlocksByWallet(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getBlocksByWallet(request, response, next);
+            this.blockService.getBlocksByWallet(request, response, next);
         };
     }
 
     private getPreviousBlock(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getPreviousBlock(request, response, next);
+            this.blockService.getPreviousBlock(request, response, next);
         };
     }
 
     private getNextBlock(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getNextBlock(request, response, next);
+            this.blockService.getNextBlock(request, response, next);
         };
     }
 
     private getNextBlocks(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockController.getNextBlocks(request, response, next);
+            this.blockService.getNextBlocks(request, response, next);
         };
     }
 }

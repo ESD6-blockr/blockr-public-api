@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { NextFunction } from "connect";
 
-export class BlockController {
+export class BlockService {
     public async getAllBlocks(request: Request, response: Response, next: NextFunction){
         throw new Error("getAllBlocks not implemented!");
         next();

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { NextFunction } from "connect";
 
-export class TransactionController {
+export class TransactionService {
     public async getAllTransactions(request: Request, response: Response, next: NextFunction) {
         throw new Error("getAllTransactions not implemented!");
         next();
