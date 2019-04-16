@@ -1,6 +1,7 @@
 import * as express from "express";
 import middleware from "./middleware";
 import { AbstractRouter } from "./routers/abstractrouter";
+import * as Sentry from "@sentry/node";
 
 export class App {
 
@@ -10,6 +11,7 @@ export class App {
     constructor(routers: AbstractRouter[], port: number) {
         this.routers = routers;
         this.port = port;
+        this.initSentry();
     }
 
     public start(): void {
@@ -26,5 +28,12 @@ export class App {
             server.use(router.path, router.router);
         });
         return server;
+    }
+
+    private initSentry() {
+        Sentry.init({
+            dsn: process.env.SENTRY_DSN,
+            environment: process.env.SENTRY_ENVIRONMENT,
+        }); 
     }
 }
