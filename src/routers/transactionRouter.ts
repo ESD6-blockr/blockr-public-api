@@ -1,20 +1,20 @@
-import { AbstractRouter } from "./abstractrouter";
-import { TransactionService } from "../services";
 import { NextFunction, Request, Response } from "express-serve-static-core";
+import { TransactionService } from "../services";
+import { AbstractRouter } from "./abstractrouter";
 
 export class TransactionRouter extends AbstractRouter {
 
-    transactionService: TransactionService;
+    private transactionService: TransactionService;
 
+    constructor(path: string) {
+        super(path);
+    }
+    
     public configure(): void {
         this.transactionService = new TransactionService();
         this.router.route("/")
             .get(this.getTransactions())
             .post(this.addTransaction());
-    }
-
-    constructor(path: string) {
-        super(path);
     }
 
     private getTransactions(): (request: Request, response: Response, next: NextFunction) => any {

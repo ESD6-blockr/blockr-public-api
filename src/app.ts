@@ -1,7 +1,7 @@
+import * as Sentry from "@sentry/node";
 import * as express from "express";
 import middleware from "./middleware";
 import { AbstractRouter } from "./routers/abstractrouter";
-import * as Sentry from "@sentry/node";
 import logger from "./utils/logger";
 
 export class App {
@@ -20,7 +20,7 @@ export class App {
         const server = this.initializeServer(express(), this.routers);
         server.listen(this.port, () => {
             logger.info(`server is running at http://localhost:${this.port}`);
-        })
+        });
     }
 
     private initializeServer(server: express.Express, routers: AbstractRouter[]): express.Application {
@@ -36,6 +36,6 @@ export class App {
         Sentry.init({
             dsn: process.env.SENTRY_DSN,
             environment: process.env.SENTRY_ENVIRONMENT,
-        }); 
+        });
     }
 }
