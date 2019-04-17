@@ -1,25 +1,44 @@
-import { Request, Response } from "express";
+import { DataAccessLayer } from "@blockr/blockr-data-access";
 import { NextFunction } from "connect";
+import { Request, Response } from "express";
+import logger from "../utils/logger";
+import { HttpException } from "../utils/exceptions/httpException";
 
 export class BlockService {
-    public async getBlocks(request: Request, response: Response, next: NextFunction){
-        throw new Error("getBlocks not implemented!");
-        next();
+    private dataAccessLayer: DataAccessLayer;
+
+    public async getBlocks(request: Request, response: Response, next: NextFunction) {
+        try {
+            response.send(
+                request.query.number !== undefined ? await this.getBlocksByNumber(request.query.number)
+                : request.query.hash !== undefined ? await this.getBlocksByHash(request.query.hash)
+                : request.query.dateperiod !== undefined ? await this.getBlocksByDatePeriod(request.query.dateperiod)
+                : await this.getAllBlocks());
+            next();
+        } catch (error) {
+            logger.error(error);
+            next(error);
+        }
     }
+
+    private async getAllBlocks() {
+        throw new HttpException("riperree, riperooo", 500);
+        // this.dataAccessLayer.get
+    }
+
+    private async getBlocksByNumber(number: string) {
+
+    }
+
+    private async getBlocksByHash(hash: string) {
+
+    }
+
+    private async getBlocksByDatePeriod(startDate: string){//, endDate: string) {
+
+    }
+
+    // private async getPreviousBlock(){
+
+    // }
 }
-
-// public async getBlockByNumer(request: Request, response: Response, next: NextFunction){
-
-// public async getBlockByHash(request: Request, response: Response, next: NextFunction){
-
-// public async getBlocksByPeriod(request: Request, response: Response, next: NextFunction){
-
-// public async getBlocksByDate(request: Request, response: Response, next: NextFunction){
-
-// public async getBlocksByWallet(request: Request, response: Response, next: NextFunction){
-
-// public async getPreviousBlock(request: Request, response: Response, next: NextFunction){
-
-// public async getNextBlock(request: Request, response: Response, next: NextFunction){
-
-// public async getNextBlocks(request: Request, response: Response, next: NextFunction){
