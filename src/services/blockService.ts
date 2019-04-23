@@ -3,6 +3,7 @@ import { Block } from "@blockr/blockr-models";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
 import { inject, injectable } from "inversify";
+import { HttpException } from "../utils/exceptions/httpException";
 import logger from "../utils/logger";
 
 @injectable()
@@ -19,7 +20,8 @@ export class BlockService {
                 request.query.number !== undefined ? await this.getBlockByNumberAsync(request.query.number)
                 : request.query.hash !== undefined ? await this.getBlocksByHashAsync(request.query.hash)
                 : request.query.dateperiod_start !== undefined && request.query.dateperiod_end !== undefined
-                ? await this.getBlocksByDatePeriodAsync(request.query.dateperiod_start, request.query.dateperiod_end)
+                    ? await this.getBlocksByDatePeriodAsync(request.query.dateperiod_start,
+                                                            request.query.dateperiod_end)
                 : request.query.parentHash !== undefined ? await this.getPreviousBlockAsync(request.query.parentHash)
                 : await this.getAllBlocksAsync());
             next();
@@ -38,7 +40,7 @@ export class BlockService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -52,7 +54,7 @@ export class BlockService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -66,7 +68,7 @@ export class BlockService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -80,7 +82,7 @@ export class BlockService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -94,7 +96,7 @@ export class BlockService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }

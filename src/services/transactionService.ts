@@ -3,6 +3,7 @@ import { Transaction } from "@blockr/blockr-models";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
 import { inject, injectable } from "inversify";
+import { HttpException } from "../utils/exceptions/httpException";
 import logger from "../utils/logger";
 
 @injectable()
@@ -13,36 +14,37 @@ export class TransactionService {
         this.dataAccessLayer = dataAccessLayer;
     }
 
-    public async addTransactionAsync(request: Request, response: Response, next: NextFunction): Promise<void> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Adding transaction.");
+    public async addTransactionAsync(request: Request, response: Response, next: NextFunction) {
+        try {
+            logger.info("Adding transaction.");
 
-                await this.dataAccessLayer.addTransactionAsync(request.body);
+            await this.dataAccessLayer.addTransactionAsync(request.body);
 
-                resolve();
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(error);
-            }
-        });
+            next();
+        } catch (error) {
+            logger.error(error);
+            next(new HttpException(error.message, 500));
+        }
     }
 
     public async getTransactions(request: Request, response: Response, next: NextFunction) {
-        response.send(
-        request.query.amount !== undefined ? await this.getTransactionsByAmountAsync(request.query.amount)
-        : request.query.period_start !== undefined
-        && request.query.period_end !== undefined
-        ? await this.getTransactionsByDatePeriodAsync(request.query.period_start, request.query.period_end)
-        : request.query.sender !== undefined ? await this.getTransactionsBySenderAsync(request.query.sender)
-        : request.query.recipient !== undefined ? await this.getTransactionsByRecipientAsync(request.query.recipient)
-        : request.query.route_sender !== undefined
-        && request.query.route_recipient !== undefined
-        ? await this.getTransactionsBySenderToRecipientAsync(request.query.route_sender, request.query.route_recipient)
-        : await this.getAllTransactionsAsync());
+        try {
+            response.send(
+            request.query.amount !== undefined ? await this.getTransactionsByAmountAsync(request.query.amount)
+            : request.query.period_start !== undefined && request.query.period_end !== undefined
+                ? await this.getTransactionsByDatePeriodAsync(request.query.period_start, request.query.period_end)
+            : request.query.sender !== undefined && request.query.recipient !== undefined
+                ? await this.getTransactionsBySenderToRecipientAsync(request.query.sender, request.query.recipient)
+            : request.query.sender !== undefined ? await this.getTransactionsBySenderAsync(request.query.sender)
+            : request.query.recipient !== undefined
+                ? await this.getTransactionsByRecipientAsync(request.query.recipient)
+            : await this.getAllTransactionsAsync());
 
-        next();
+            next();
+        } catch (error) {
+            logger.error(error);
+            next(error);
+        }
     }
 
     private async getTransactionsByAmountAsync(amount: number): Promise<Transaction[]> {
@@ -54,7 +56,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -68,7 +70,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -82,7 +84,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -96,7 +98,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -110,7 +112,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
@@ -124,7 +126,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(error);
+                reject(new HttpException(error.message, 404));
             }
         });
     }
