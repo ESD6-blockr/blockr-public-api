@@ -1,11 +1,13 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
+import { inject, injectable } from "inversify";
 
+@injectable()
 export class TransactionService {
     protected dataAccessLayer: DataAccessLayer;
 
-    constructor(dataAccessLayer: DataAccessLayer) {
+    constructor(@inject(DataAccessLayer) dataAccessLayer: DataAccessLayer) {
         this.dataAccessLayer = dataAccessLayer;
     }
 

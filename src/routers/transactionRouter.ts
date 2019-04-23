@@ -1,17 +1,19 @@
 import { NextFunction, Request, Response } from "express-serve-static-core";
+import { inject, injectable } from "inversify";
 import { TransactionService } from "../services";
 import { AbstractRouter } from "./abstractrouter";
 
+@injectable()
 export class TransactionRouter extends AbstractRouter {
-
+    private static readonly ROUTE = "/transactions";
     private transactionService: TransactionService;
 
-    constructor(path: string) {
-        super(path);
+    constructor(@inject(TransactionService) transactionService: TransactionService) {
+        super(TransactionRouter.ROUTE);
+        this.transactionService = transactionService;
     }
     
     public configure(): void {
-        this.transactionService = new TransactionService();
         this.router.route("/")
             .get(this.getTransactions())
             .post(this.addTransaction());

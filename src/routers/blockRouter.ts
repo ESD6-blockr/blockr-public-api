@@ -1,19 +1,21 @@
-import { AbstractRouter } from "./abstractrouter";
-import { BlockService } from "../services";
 import { NextFunction, Request, Response } from "express-serve-static-core";
+import { inject, injectable } from "inversify";
+import { BlockService } from "../services";
+import { AbstractRouter } from "./abstractrouter";
 
+@injectable()
 export class BlockRouter extends AbstractRouter {
+    private static readonly ROUTE = "/blocks";
+    protected blockService: BlockService;
 
-    blockService: BlockService;
-
-    public configure(): void {
-        this.blockService = new BlockService();
-        this.router.route("/")
-            .get(this.getBlocks());
+    constructor(@inject(BlockService) blockService: BlockService) {
+        super(BlockRouter.ROUTE);
+        this.blockService = blockService;
     }
 
-    constructor(path: string) {
-        super(path);
+    public configure(): void {
+        this.router.route("/")
+            .get(this.getBlocks());
     }
 
     private getBlocks(): (request: Request, response: Response, next: NextFunction) => any {

@@ -5,7 +5,6 @@ import { AbstractRouter } from "./routers/abstractrouter";
 import logger from "./utils/logger";
 
 export class App {
-
     private port: number;
     private routers: AbstractRouter[];
 

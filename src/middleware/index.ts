@@ -3,7 +3,6 @@ import * as compression from "compression";
 import * as cors from "cors";
 import { errorHandlingMiddleware } from "./errorHandlingMiddleware";
 
-  
 export default [
     cors({ credentials: true, origin: true }),
     parser.urlencoded({ extended: true }),
