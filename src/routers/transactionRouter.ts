@@ -3,13 +3,15 @@ import { inject, injectable } from "inversify";
 import { TransactionService } from "../services";
 import { AbstractRouter } from "./abstractrouter";
 
+const ROUTE = "/transactions";
+
 @injectable()
 export class TransactionRouter extends AbstractRouter {
-    private static readonly ROUTE = "/transactions";
+    
     private transactionService: TransactionService;
 
     constructor(@inject(TransactionService) transactionService: TransactionService) {
-        super(TransactionRouter.ROUTE);
+        super(ROUTE);
         this.transactionService = transactionService;
     }
     

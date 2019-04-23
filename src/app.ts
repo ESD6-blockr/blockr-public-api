@@ -1,5 +1,6 @@
 import * as Sentry from "@sentry/node";
 import * as express from "express";
+import InternalIp from "internal-ip";
 import middleware from "./middleware";
 import { AbstractRouter } from "./routers/abstractrouter";
 import logger from "./utils/logger";
@@ -16,9 +17,10 @@ export class App {
     }
 
     public start(): void {
+        
         const server = this.initializeServer(express(), this.routers);
         server.listen(this.port, () => {
-            logger.info(`server is running at http://localhost:${this.port}`);
+            logger.info(`server is running at ${InternalIp.v4()}:${this.port}`);
         });
     }
 
