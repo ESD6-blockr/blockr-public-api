@@ -20,7 +20,7 @@ export class BlockRouter extends AbstractRouter {
 
     private getBlocks(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.blockService.getBlocks(request, response, next);
+            this.blockService.getBlocksAsync(request, response, next);
         };
     }
 }

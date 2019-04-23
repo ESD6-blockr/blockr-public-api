@@ -27,7 +27,7 @@ export class TransactionRouter extends AbstractRouter {
 
     private addTransaction(): (request: Request, response: Response, next: NextFunction) => any {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionService.addTransaction(request, response, next);
+            this.transactionService.addTransactionAsync(request, response, next);
         };
     }
 }
