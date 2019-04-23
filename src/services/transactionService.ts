@@ -1,7 +1,13 @@
+import { DataAccessLayer } from "@blockr/blockr-data-access";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
 
 export class TransactionService {
+    protected dataAccessLayer: DataAccessLayer;
+
+    constructor(dataAccessLayer: DataAccessLayer) {
+        this.dataAccessLayer = dataAccessLayer;
+    }
 
     public async addTransaction(request: Request, response: Response, next: NextFunction) {
         throw new Error("addTransaction not implemented!");

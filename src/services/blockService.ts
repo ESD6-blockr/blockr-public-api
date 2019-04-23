@@ -1,11 +1,15 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
-import logger from "../utils/logger";
 import { HttpException } from "../utils/exceptions/httpException";
+import logger from "../utils/logger";
 
 export class BlockService {
-    private dataAccessLayer: DataAccessLayer;
+    protected dataAccessLayer: DataAccessLayer;
+
+    constructor(dataAccessLayer: DataAccessLayer) {
+        this.dataAccessLayer = dataAccessLayer;
+    }
 
     public async getBlocks(request: Request, response: Response, next: NextFunction) {
         try {
