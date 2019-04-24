@@ -7,4 +7,5 @@ export default [
     cors({ credentials: true, origin: true }),
     parser.urlencoded({ extended: true }),
     parser.json(), compression(),
-    errorHandlingMiddleware];
+    errorHandlingMiddleware,
+];
