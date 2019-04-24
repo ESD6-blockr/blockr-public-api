@@ -1,3 +1,4 @@
+import { Block } from "@blockr/blockr-data-access/node_modules/@blockr/blockr-models";
 import { NextFunction, Request, Response } from "express-serve-static-core";
 import { inject, injectable } from "inversify";
 import { BlockService } from "../services";
@@ -18,7 +19,7 @@ export class BlockRouter extends AbstractRouter {
             .get(this.getBlocks());
     }
 
-    private getBlocks(): (request: Request, response: Response, next: NextFunction) => any {
+    private getBlocks(): (request: Request, response: Response, next: NextFunction) => Promise<Block[]> {
         return (request: Request, response: Response, next: NextFunction) => {
             this.blockService.getBlocksAsync(request, response, next);
         };

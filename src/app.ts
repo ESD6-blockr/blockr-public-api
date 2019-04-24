@@ -32,7 +32,7 @@ export class App {
         return server;
     }
 
-    private initSentry() {
+    private initSentry(): void {
         Sentry.init({
             dsn: process.env.SENTRY_DSN,
             environment: process.env.SENTRY_ENVIRONMENT,

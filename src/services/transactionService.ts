@@ -14,7 +14,7 @@ export class TransactionService {
         this.dataAccessLayer = dataAccessLayer;
     }
 
-    public async addTransactionAsync(request: Request, response: Response, next: NextFunction) {
+    public async addTransactionAsync(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
             logger.info("Adding transaction.");
 
