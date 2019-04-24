@@ -3,7 +3,7 @@ import { Transaction } from "@blockr/blockr-models";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
 import { inject, injectable } from "inversify";
-import { HttpException } from "../utils/exceptions/httpException";
+import { DataAccessLayerException } from "../utils/exceptions/dataAccessLayerException";
 import logger from "../utils/logger";
 
 @injectable()
@@ -23,7 +23,7 @@ export class TransactionService {
             next();
         } catch (error) {
             logger.error(error);
-            next(new HttpException(error.message, 500));
+            next(new DataAccessLayerException(error.name, error.message));
         }
     }
 
@@ -43,7 +43,7 @@ export class TransactionService {
             next();
         } catch (error) {
             logger.error(error);
-            next(error);
+            next(new DataAccessLayerException(error.name, error.message));
         }
     }
 
@@ -56,7 +56,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(new HttpException(error.message, 404));
+                reject(new DataAccessLayerException(error.name, error.message));
             }
         });
     }
@@ -70,7 +70,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(new HttpException(error.message, 404));
+                reject(new DataAccessLayerException(error.name, error.message));
             }
         });
     }
@@ -84,7 +84,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(new HttpException(error.message, 404));
+                reject(new DataAccessLayerException(error.name, error.message));
             }
         });
     }
@@ -98,7 +98,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(new HttpException(error.message, 404));
+                reject(new DataAccessLayerException(error.name, error.message));
             }
         });
     }
@@ -112,7 +112,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(new HttpException(error.message, 404));
+                reject(new DataAccessLayerException(error.name, error.message));
             }
         });
     }
@@ -126,7 +126,7 @@ export class TransactionService {
             } catch (error) {
                 logger.error(error.message);
 
-                reject(new HttpException(error.message, 404));
+                reject(new DataAccessLayerException(error.name, error.message));
             }
         });
     }

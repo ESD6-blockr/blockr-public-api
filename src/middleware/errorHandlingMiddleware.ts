@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { HttpException } from "../utils/exceptions/httpException";
- 
-export function errorHandlingMiddleware(error: HttpException, request: Request,
-                                        response: Response, next: NextFunction) {
-  const status = error.status || 500;
+import { DataAccessLayerException } from "../utils/exceptions/dataAccessLayerException";
+
+export function errorHandlingMiddleware(error: DataAccessLayerException, request: Request,
+                                        response: Response, next: NextFunction): void {
+  const name = error.name;
   const message = error.message || "Something went wrong";
   response
-    .status(status)
+    .status(500)
     .send({
       message,
-      status,
+      name,
     });
 }
