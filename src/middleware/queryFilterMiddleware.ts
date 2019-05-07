@@ -1,14 +1,22 @@
 import { NextFunction, Request, Response } from "express";
-import { url } from "inspector";
  
 export const queryFilterMiddleware = (request: Request, response: Response, next: NextFunction) => {
-    let querys: { Record<string, string> } = request.query;
-    if (querys. < 1){
-        next();
-    }
-    console.log(querys);
-    for (let key in querys) {
-        let value = querys[key];
+    let queries: [string, string] = request.query;
+
+    // When there are no queries, go out
+    // if (queries. < 1){
+    //     next();
+    // }
+
+    // Create sql query for all query parameters and add to the request
+    
+
+    // TEST
+    console.log(queries);
+    response.getHeader("niks"); //UNUSED
+    
+    for (const key in queries) {
+        const value = queries[key];
         console.log(key);
         console.log(value);
     }
