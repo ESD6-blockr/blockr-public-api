@@ -1,10 +1,10 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
+import { logger } from "@blockr/blockr-logger"; 
 import { Transaction } from "@blockr/blockr-models";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
 import { inject, injectable } from "inversify";
 import { DataAccessLayerException } from "../utils/exceptions/dataAccessLayerException";
-import logger from "../utils/logger";
 
 @injectable()
 export class TransactionService {

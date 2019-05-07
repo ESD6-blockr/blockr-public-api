@@ -1,8 +1,8 @@
+import { logger } from "@blockr/blockr-logger";
 import * as Sentry from "@sentry/node";
 import * as express from "express";
 import middleware from "./middleware";
 import { AbstractRouter } from "./routers/abstractrouter";
-import logger from "./utils/logger";
 
 export class App {
     private port: number;
