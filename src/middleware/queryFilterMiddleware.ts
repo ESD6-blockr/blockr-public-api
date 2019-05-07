@@ -21,5 +21,5 @@ export const queryFilterMiddleware = (request: Request, response: Response, next
         console.log(value);
     }
 
-    next();
-};
+//     next();
+// };
