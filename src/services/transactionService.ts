@@ -27,7 +27,7 @@ export class TransactionService {
         }
     }
 
-    public async getTransactions(request: Request, response: Response, next: NextFunction) {
+    public async getTransactionsAsync(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
             response.send(
             request.query.amount !== undefined ? await this.getTransactionsByAmountAsync(request.query.amount)

@@ -1,4 +1,4 @@
-import { Transaction } from "@blockr/blockr-data-access/node_modules/@blockr/blockr-models";
+import { Transaction } from "@blockr/blockr-models";
 import { NextFunction, Request, Response } from "express-serve-static-core";
 import { inject, injectable } from "inversify";
 import { TransactionService } from "../services";
@@ -22,13 +22,13 @@ export class TransactionRouter extends AbstractRouter {
             .post(this.addTransaction());
     }
 
-    private getTransactions(): (request: Request, response: Response, next: NextFunction) => Promise<Transaction[]> {
+    private getTransactions(): (request: Request, response: Response, next: NextFunction) => void {
         return (request: Request, response: Response, next: NextFunction) => {
-            this.transactionService.getTransactions(request, response, next);
+            this.transactionService.getTransactionsAsync(request, response, next);
         };
     }
 
-    private addTransaction(): (request: Request, response: Response, next: NextFunction) => Promise<void> {
+    private addTransaction(): (request: Request, response: Response, next: NextFunction) => void {
         return (request: Request, response: Response, next: NextFunction) => {
             this.transactionService.addTransactionAsync(request, response, next);
         };
