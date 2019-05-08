@@ -12,7 +12,7 @@ export class App {
         this.routers = routers;
         this.port = port;
 
-        this.initSentry();
+        // this.initSentry();
     }
 
     public start(): void {
