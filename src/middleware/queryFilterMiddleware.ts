@@ -1,3 +1,4 @@
+import { logger } from "@blockr/blockr-logger";
 import { NextFunction, Request, Response } from "express";
  
 export const queryFilterMiddleware = (request: Request, response: Response, next: NextFunction) => {
@@ -12,14 +13,14 @@ export const queryFilterMiddleware = (request: Request, response: Response, next
     
 
     // TEST
-    console.log(queries);
+    logger.info(queries);
     response.getHeader("niks"); //UNUSED
     
     for (const key in queries) {
         const value = queries[key];
-        console.log(key);
-        console.log(value);
+        logger.info(key);
+        logger.info(value);
     }
 
-//     next();
-// };
+    next();
+};

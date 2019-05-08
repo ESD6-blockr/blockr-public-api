@@ -1,5 +1,5 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
-import { logger } from "@blockr/blockr-logger"; 
+import { logger } from "@blockr/blockr-logger";
 import { Transaction } from "@blockr/blockr-models";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
