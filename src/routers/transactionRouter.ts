@@ -2,7 +2,7 @@ import { Transaction } from "@blockr/blockr-models";
 import { NextFunction, Request, Response } from "express-serve-static-core";
 import { inject, injectable } from "inversify";
 import { TransactionService } from "../services";
-import { AbstractRouter } from "./abstractrouter";
+import { AbstractRouter } from "./abstractRouter";
 
 const ROUTE = "/transactions";
 

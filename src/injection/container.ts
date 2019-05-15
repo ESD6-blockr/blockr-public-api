@@ -3,7 +3,7 @@ import { logger } from "@blockr/blockr-logger";
 import { BlockHeader, Transaction } from "@blockr/blockr-models";
 import { Container } from "inversify";
 import { BlockRouter, TransactionRouter } from "../routers";
-import { AbstractRouter } from "../routers/abstractrouter";
+import { AbstractRouter } from "../routers/abstractRouter";
 import { BlockService, TransactionService } from "../services";
 
 /**
