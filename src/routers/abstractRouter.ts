@@ -11,3 +11,4 @@ export abstract class AbstractRouter {
 
     public abstract configure(): void;
 }
+
