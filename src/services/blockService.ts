@@ -16,14 +16,7 @@ export class BlockService {
 
     public async getBlocksAsync(request: Request, response: Response, next: NextFunction) {
         try {
-            response.send(
-                request.query.number !== undefined ? await this.getBlockByNumberAsync(request.query.number)
-                : request.query.hash !== undefined ? await this.getBlocksByHashAsync(request.query.hash)
-                : request.query.dateperiod_start !== undefined && request.query.dateperiod_end !== undefined
-                    ? await this.getBlocksByDatePeriodAsync(request.query.dateperiod_start,
-                                                            request.query.dateperiod_end)
-                : request.query.parentHash !== undefined ? await this.getPreviousBlockAsync(request.query.parentHash)
-                : await this.getAllBlocksAsync());
+            response.send(await this.getBlocksByQueryAsync(request.query));
             next();
         } catch (error) {
             logger.error(error);
@@ -31,68 +24,12 @@ export class BlockService {
         }
     }
 
-    private async getBlockByNumberAsync(numberBlock: number): Promise<Block> {
+    private async getBlocksByQueryAsync(queries: object): Promise<Block[]> {
         return new Promise(async (resolve, reject) => {
             try {
-                logger.info("Getting block by number.");
+                logger.info("Getting blocks by an optional filter.");
 
-                resolve(await this.dataAccessLayer.getBlockAsync(numberBlock));
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getBlocksByHashAsync(hash: string): Promise<Block[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting blocks by hash.");
-
-                resolve(await this.dataAccessLayer.getBlocksByHashAsync(hash));
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getBlocksByDatePeriodAsync(startDate: Date, endDate: Date): Promise<Block[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting blocks by date period.");
-
-                resolve(await this.dataAccessLayer.getBlocksByDatePeriodAsync(startDate, endDate));
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getAllBlocksAsync(): Promise<Block[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting blocks by date period.");
-
-                resolve(await this.dataAccessLayer.getBlockchainAsync());
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getPreviousBlockAsync(parentHash: string): Promise<Block> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting blocks by date period.");
-
-                resolve(await this.dataAccessLayer.getPreviousBlockAsync(parentHash));
+                resolve(await this.dataAccessLayer.getBlocksByQueryAsync(queries));
             } catch (error) {
                 logger.error(error.message);
 

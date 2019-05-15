@@ -24,10 +24,10 @@ DIContainer.bind<TransactionService>(TransactionService).toSelf().inTransientSco
 DIContainer.bind<AbstractRouter>("Routers").to(BlockRouter).inTransientScope();
 DIContainer.bind<AbstractRouter>("Routers").to(TransactionRouter).inTransientScope();
 
-logger.info(process.env);
 // Bind singletons
 DIContainer.bind<DataSource>("DataSource").toConstantValue(DataSource.MONGO_DB);
 DIContainer.bind<IClientConfiguration>("Configuration")
-    .toConstantValue(new MongoDBConfiguration("mongodb://localhost:27017/", "database"));
+    .toConstantValue(new MongoDBConfiguration(`mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}`,
+                                                `${process.env.MONGODB_DATABASE}`));
 
 export default DIContainer;

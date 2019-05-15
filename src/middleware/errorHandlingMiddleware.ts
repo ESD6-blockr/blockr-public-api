@@ -5,7 +5,7 @@ export function errorHandlingMiddleware(error: DataAccessLayerException, request
                                         response: Response, next: NextFunction): void {
   const name = error.name;
   const message = error.message || "Something went wrong";
-  request.getMaxListeners(); //UNUSED
+  request.getMaxListeners(); // UNUSED
   response
     .status(500)
     .send({

@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/ESD6-blockr/blockr-public-api#readme",
   "dependencies": {
-    "@blockr/blockr-data-access": "^2.1.0-20",
+    "@blockr/blockr-data-access": "^2.1.0-24",
     "@blockr/blockr-logger": "^1.1.0-15",
     "@blockr/blockr-models": "^1.3.0-14",
     "@sentry/node": "^5.1.2",

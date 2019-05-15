@@ -29,17 +29,8 @@ export class TransactionService {
 
     public async getTransactionsAsync(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
-            response.send(
-            request.query.amount !== undefined ? await this.getTransactionsByAmountAsync(request.query.amount)
-            : request.query.period_start !== undefined && request.query.period_end !== undefined
-                ? await this.getTransactionsByDatePeriodAsync(request.query.period_start, request.query.period_end)
-            : request.query.sender !== undefined && request.query.recipient !== undefined
-                ? await this.getTransactionsBySenderToRecipientAsync(request.query.sender, request.query.recipient)
-            : request.query.sender !== undefined ? await this.getTransactionsBySenderAsync(request.query.sender)
-            : request.query.recipient !== undefined
-                ? await this.getTransactionsByRecipientAsync(request.query.recipient)
-            : await this.getAllTransactionsAsync());
-
+            logger.info(JSON.stringify(request.query));
+            response.send(await this.getTransactionsByQueryAsync(request.query));
             next();
         } catch (error) {
             logger.error(error);
@@ -47,82 +38,11 @@ export class TransactionService {
         }
     }
 
-    private async getTransactionsByAmountAsync(amount: number): Promise<Transaction[]> {
+    private async getTransactionsByQueryAsync(queries: object): Promise<Transaction[]> {
         return new Promise(async (resolve, reject) => {
             try {
-                logger.info("Getting transactions by amount.");
-
-                resolve(await this.dataAccessLayer.getTransactionsByAmountAsync(amount));
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getTransactionsByDatePeriodAsync(startDate: Date, endDate: Date): Promise<Transaction[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting transactions by date period.");
-
-                resolve(await this.dataAccessLayer.getTransactionsByDatePeriodAsync(startDate, endDate));
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getTransactionsBySenderAsync(sender: string): Promise<Transaction[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting transactions by sender.");
-
-                resolve(await this.dataAccessLayer.getTransactionsBySenderKeyAsync(sender));
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getTransactionsByRecipientAsync(recipient: string): Promise<Transaction[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting transactions by recipient.");
-
-                resolve(await this.dataAccessLayer.getTransactionsByRecipientKeyAsync(recipient));
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getTransactionsBySenderToRecipientAsync(sender: string, recipient: string): Promise<Transaction[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting transactions by sender to recipient.");
-
-                resolve(await this.dataAccessLayer.getTransactionsBySenderKeyToRecipientKeyAsync(sender, recipient));
-            } catch (error) {
-                logger.error(error.message);
-
-                reject(new DataAccessLayerException(error.name, error.message));
-            }
-        });
-    }
-
-    private async getAllTransactionsAsync(): Promise<Transaction[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                logger.info("Getting all transactions.");
-
-                resolve(await this.dataAccessLayer.getTransactionsAsync());
+                logger.info("Getting transactions by an optional filter.");
+                resolve(await this.dataAccessLayer.getTransactionsByQueryAsync(queries));
             } catch (error) {
                 logger.error(error.message);
 
