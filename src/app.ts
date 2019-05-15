@@ -25,10 +25,10 @@ export class App {
 
     private initializeServer(server: express.Express, routers: AbstractRouter[]): express.Application {
         server.use(middleware);
-        routers.map((router: AbstractRouter) => {
+        for (const router of routers) {
             router.configure();
             server.use(router.path, router.router);
-        });
+        }
         return server;
     }
 
