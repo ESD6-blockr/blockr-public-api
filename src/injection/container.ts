@@ -3,7 +3,7 @@ import { logger } from "@blockr/blockr-logger";
 import { BlockHeader, Transaction } from "@blockr/blockr-models";
 import { Container } from "inversify";
 import { BlockRouter, TransactionRouter } from "../routers";
-import { AbstractRouter } from "../routers/abstractrouter";
+import { AbstractRouter } from "../routers/abstractRouter";
 import { BlockService, TransactionService } from "../services";
 
 /**
@@ -24,10 +24,10 @@ DIContainer.bind<TransactionService>(TransactionService).toSelf().inTransientSco
 DIContainer.bind<AbstractRouter>("Routers").to(BlockRouter).inTransientScope();
 DIContainer.bind<AbstractRouter>("Routers").to(TransactionRouter).inTransientScope();
 
-logger.info(process.env);
 // Bind singletons
 DIContainer.bind<DataSource>("DataSource").toConstantValue(DataSource.MONGO_DB);
 DIContainer.bind<IClientConfiguration>("Configuration")
-    .toConstantValue(new MongoDBConfiguration("mongodb://localhost:27017/", "database"));
+    .toConstantValue(new MongoDBConfiguration(`mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}`,
+                                                `${process.env.MONGODB_DATABASE}`));
 
 export default DIContainer;

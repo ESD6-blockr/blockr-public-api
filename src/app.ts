@@ -2,11 +2,11 @@ import { logger } from "@blockr/blockr-logger";
 import * as Sentry from "@sentry/node";
 import * as express from "express";
 import middleware from "./middleware";
-import { AbstractRouter } from "./routers/abstractrouter";
+import { AbstractRouter } from "./routers/abstractRouter";
 
 export class App {
-    private port: number;
-    private routers: AbstractRouter[];
+    private readonly port: number;
+    private readonly routers: AbstractRouter[];
 
     constructor(routers: AbstractRouter[], port: number) {
         this.routers = routers;
@@ -25,10 +25,10 @@ export class App {
 
     private initializeServer(server: express.Express, routers: AbstractRouter[]): express.Application {
         server.use(middleware);
-        routers.map((router: AbstractRouter) => {
+        for (const router of routers) {
             router.configure();
             server.use(router.path, router.router);
-        });
+        }
         return server;
     }
 

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express-serve-static-core";
 import { inject, injectable } from "inversify";
 import { BlockService } from "../services";
-import { AbstractRouter } from "./abstractrouter";
+import { AbstractRouter } from "./abstractRouter";
 
 @injectable()
 export class BlockRouter extends AbstractRouter {
