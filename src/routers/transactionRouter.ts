@@ -1,4 +1,3 @@
-import { Transaction } from "@blockr/blockr-models";
 import { NextFunction, Request, Response } from "express-serve-static-core";
 import { inject, injectable } from "inversify";
 import { TransactionService } from "../services";
@@ -9,7 +8,7 @@ const ROUTE = "/transactions";
 @injectable()
 export class TransactionRouter extends AbstractRouter {
 
-    private transactionService: TransactionService;
+    private readonly transactionService: TransactionService;
 
     constructor(@inject(TransactionService) transactionService: TransactionService) {
         super(ROUTE);

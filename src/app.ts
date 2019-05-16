@@ -5,8 +5,8 @@ import middleware from "./middleware";
 import { AbstractRouter } from "./routers/abstractRouter";
 
 export class App {
-    private port: number;
-    private routers: AbstractRouter[];
+    private readonly port: number;
+    private readonly routers: AbstractRouter[];
 
     constructor(routers: AbstractRouter[], port: number) {
         this.routers = routers;
