@@ -18,7 +18,7 @@ export class TransactionService {
         try {
             logger.info("Adding transaction.");
 
-            response.send(await this.dataAccessLayer.addTransactionAsync(request.body));
+            response.send(await this.dataAccessLayer.addTransactionAsync(request.body as Transaction));
 
             next();
         } catch (error) {

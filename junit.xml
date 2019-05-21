@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="6" failures="0" time="8.945">
+  <testsuite name="BlockService - getBlocksAsync" errors="0" failures="0" skipped="0" timestamp="2019-05-21T13:03:54" time="7.216" tests="2">
+    <testcase classname="BlockService - getBlocksAsync should call getBlocksAsync on the data acces layer " name="BlockService - getBlocksAsync should call getBlocksAsync on the data acces layer " time="0.012">
+    </testcase>
+    <testcase classname="BlockService - getBlocksAsync should fail if the data access layer throws an exception" name="BlockService - getBlocksAsync should fail if the data access layer throws an exception" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="TransactionService - getTransactionsByQueryAsync" errors="0" failures="0" skipped="0" timestamp="2019-05-21T13:03:54" time="7.299" tests="4">
+    <testcase classname="TransactionService - getTransactionsByQueryAsync should call getTransactionsByQueryAsync on the data acces layer " name="TransactionService - getTransactionsByQueryAsync should call getTransactionsByQueryAsync on the data acces layer " time="0.01">
+    </testcase>
+    <testcase classname="TransactionService - getTransactionsByQueryAsync should fail if the data access layer throws an exception" name="TransactionService - getTransactionsByQueryAsync should fail if the data access layer throws an exception" time="0.003">
+    </testcase>
+    <testcase classname="TransactionService - addTransaction should call addTransaction on the data access layer" name="TransactionService - addTransaction should call addTransaction on the data access layer" time="0.002">
+    </testcase>
+    <testcase classname="TransactionService - addTransaction should fail if the data access layer throws an exception" name="TransactionService - addTransaction should fail if the data access layer throws an exception" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>
