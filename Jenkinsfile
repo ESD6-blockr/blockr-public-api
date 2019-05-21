@@ -8,7 +8,7 @@ Map settings = [
     sonar_key: 'blockr-public-api',
     source_folder: 'src/',
     archive_folders: ['dist/'],
-    skip_tests: true
+    skip_tests: false
 ]
 
 tsBuildAndPublish(repo, settings)
