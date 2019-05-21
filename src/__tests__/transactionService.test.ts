@@ -3,7 +3,8 @@ import { logger } from "@blockr/blockr-logger";
 import { Request, Response } from "express";
 import * as mocks from "node-mocks-http";
 import { TransactionService } from "../services";
-import { ADD_TRANSACTION_ERROR_MESSAGE, dataAccessLayerMock, GET_TRANSACTIONS_ERROR_MESSAGE } from "./constants/model.constants";
+import { ADD_TRANSACTION_ERROR_MESSAGE, dataAccessLayerMock,
+    GET_TRANSACTIONS_ERROR_MESSAGE } from "./constants/model.constants";
 
 jest.mock("@blockr/blockr-logger");
 
