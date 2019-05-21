@@ -13,7 +13,7 @@ export const getBlocks = () => {
                     "1.0.0",
                     1,
                     new Date(),
-                    10,
+                    1,
                 ),
                 new Set(),
                 BlockType.GENESIS,
@@ -27,7 +27,7 @@ export const getTransactions = () => {
                 TransactionType.COIN,
                 "RECIPIENT_KEY_TEST",
                 "SENDER_KEY_TEST",
-                10,
+                1,
                 new Date(),
             ),
         );
