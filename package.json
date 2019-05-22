@@ -1,6 +1,6 @@
 {
   "name": "@blockr/blockr-public-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Blockr public api package",
   "main": "dist/main.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/ESD6-blockr/blockr-public-api#readme",
   "dependencies": {
-    "@blockr/blockr-data-access": "^2.1.0-24",
+    "@blockr/blockr-data-access": "^3.0.0-build.5",
     "@blockr/blockr-logger": "^1.1.0-15",
     "@blockr/blockr-models": "^1.4.0-20",
     "@sentry/node": "^5.1.2",
