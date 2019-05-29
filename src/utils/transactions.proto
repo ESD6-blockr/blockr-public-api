@@ -3,9 +3,12 @@ syntax = "proto3";
 package transactions;
 
 message Transaction{
-  string id = 1;
-  string name = 2;
-  string state = 3;
+  string type = 1;
+  string recipientKey = 2;
+  string senderKey = 3;
+  int64 amount = 4;
+  string date = 5;
+  string signature = 6;
 }
 
 message AddTransactionRequest {
@@ -13,7 +16,6 @@ message AddTransactionRequest {
 }
 
 message AddTransactionResponse {
-
 }
 
 service TransactionRpcService {

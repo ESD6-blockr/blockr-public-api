@@ -4,14 +4,14 @@ import { Request, Response } from "express";
 import * as mocks from "node-mocks-http";
 import { TransactionService } from "../services";
 import { ADD_TRANSACTION_ERROR_MESSAGE, dataAccessLayerMock,
-    GET_TRANSACTIONS_ERROR_MESSAGE } from "./constants/model.constants";
+    GET_TRANSACTIONS_ERROR_MESSAGE, rpcTransactionService} from "./constants/model.constants";
 
 jest.mock("@blockr/blockr-logger");
 
 let transactionService: TransactionService;
 
 beforeEach(() => {
-    transactionService = new TransactionService(dataAccessLayerMock);
+    transactionService = new TransactionService(dataAccessLayerMock, rpcTransactionService);
 });
 
 describe("TransactionService - getTransactionsByQueryAsync", () => {
@@ -57,7 +57,7 @@ describe("TransactionService - addTransaction", () => {
         response = mocks.createResponse();
     });
 
-    it("should call addTransaction on the data access layer", async () => {
+    it("should call addTransaction on the validator", async () => {
         const next = () => { logger.info("test"); };
 
         request.body = {
@@ -70,13 +70,13 @@ describe("TransactionService - addTransaction", () => {
             type: "COIN",
         };
 
-        spyOn(dataAccessLayerMock, "addTransactionAsync");
+        spyOn(rpcTransactionService, "addTransaction");
 
         await transactionService.addTransactionAsync(request, response, next);
 
-        expect(dataAccessLayerMock.addTransactionAsync).toHaveBeenCalled();
+        expect(rpcTransactionService.addTransaction).toHaveBeenCalled();
     });
-    it("should fail if the data access layer throws an exception", async () => {
+    it("should fail if the validator throws an exception", async () => {
         const next = (error?: Error) => {
             expect(error).toBeDefined();
             if (error) {

@@ -6,7 +6,7 @@ import { injectable } from "inversify";
 const PROTO_PATH = __dirname + "/../../utils/route_guide.proto";
 
 @injectable()
-export class RpcService {
+export class RpcTransactionService {
     private transactionProto: any;
     private client: any;
 
@@ -21,7 +21,8 @@ export class RpcService {
                 oneofs: true,
             });
         this.transactionProto = grpc.loadPackageDefinition(packageDefinition).transactions;
-        this.client = new this.transactionProto.transactionRpcService("localhost", grpc.credentials.createInsecure());
+        this.client = new this.transactionProto.transactionRpcService("127.0.0.1:5678",
+                                                                        grpc.credentials.createInsecure());
     }
 
     public addTransaction(transaction: Transaction) {
