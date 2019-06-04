@@ -16,7 +16,7 @@ export const getBlocks = () => {
                     new Date(),
                     1,
                 ),
-                new Set(),
+                [],
                 BlockType.GENESIS,
             ));
 };

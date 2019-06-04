@@ -1,18 +1,21 @@
 import { Transaction } from "@blockr/blockr-models";
-import * as protoLoader from "@grpc/proto-loader";
-import * as grpc from "grpc";
+import { loadSync } from "@grpc/proto-loader";
+import { credentials, loadPackageDefinition } from "grpc";
 import { injectable } from "inversify";
 
-const PROTO_PATH = __dirname + "/../../utils/route_guide.proto";
+const PROTOCOL_PATH = "../utils/transactions.proto";
+const HOST = "127.0.0.1";
+const PORT = "5678";
 
 @injectable()
 export class RpcTransactionService {
+    // No type exists for these proporties as it is defined in the protocol (.proto) file, hence any.
     private transactionProto: any;
     private client: any;
 
     constructor() {
-        const packageDefinition = protoLoader.loadSync(
-            PROTO_PATH,
+        const packageDefinition = loadSync(
+            PROTOCOL_PATH,
             {
                 defaults: true,
                 enums: String,
@@ -20,9 +23,9 @@ export class RpcTransactionService {
                 longs: String,
                 oneofs: true,
             });
-        this.transactionProto = grpc.loadPackageDefinition(packageDefinition).transactions;
-        this.client = new this.transactionProto.transactionRpcService("127.0.0.1:5678",
-                                                                        grpc.credentials.createInsecure());
+        this.transactionProto = loadPackageDefinition(packageDefinition).transactions;
+        this.client = new this.transactionProto.transactionRpcService(`${HOST}:${PORT}`,
+                                                                        credentials.createInsecure());
     }
 
     public addTransaction(transaction: Transaction) {
