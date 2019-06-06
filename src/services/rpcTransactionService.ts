@@ -2,8 +2,9 @@ import { Transaction } from "@blockr/blockr-models";
 import { loadSync } from "@grpc/proto-loader";
 import { credentials, loadPackageDefinition } from "grpc";
 import { injectable } from "inversify";
+import { env } from "process";
 
-const PROTOCOL_PATH = "../utils/transactions.proto";
+const PROTOCOL_PATH = `${env.PROTO_PATH as string}/transactions.proto`;
 const HOST = "127.0.0.1";
 const PORT = "5678";
 

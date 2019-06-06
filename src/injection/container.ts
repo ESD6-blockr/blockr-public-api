@@ -1,10 +1,9 @@
 import { DataAccessLayer, DataSource, IClientConfiguration, MongoDBConfiguration } from "@blockr/blockr-data-access";
-import { logger } from "@blockr/blockr-logger";
-import { BlockHeader, Transaction } from "@blockr/blockr-models";
 import { Container } from "inversify";
 import { BlockRouter, TransactionRouter } from "../routers";
 import { AbstractRouter } from "../routers/abstractRouter";
 import { BlockService, TransactionService } from "../services";
+import { RpcTransactionService } from "../services/rpcTransactionService";
 
 /**
  * Composition root
@@ -20,6 +19,7 @@ DIContainer.bind<DataAccessLayer>(DataAccessLayer).toSelf().inTransientScope();
 
 DIContainer.bind<BlockService>(BlockService).toSelf().inTransientScope();
 DIContainer.bind<TransactionService>(TransactionService).toSelf().inTransientScope();
+DIContainer.bind<RpcTransactionService>(RpcTransactionService).toSelf().inTransientScope();
 
 DIContainer.bind<AbstractRouter>("Routers").to(BlockRouter).inTransientScope();
 DIContainer.bind<AbstractRouter>("Routers").to(TransactionRouter).inTransientScope();
@@ -28,6 +28,6 @@ DIContainer.bind<AbstractRouter>("Routers").to(TransactionRouter).inTransientSco
 DIContainer.bind<DataSource>("DataSource").toConstantValue(DataSource.MONGO_DB);
 DIContainer.bind<IClientConfiguration>("Configuration")
     .toConstantValue(new MongoDBConfiguration(`mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}`,
-                                                `${process.env.MONGODB_DATABASE}`));
+        `${process.env.MONGODB_DATABASE}`));
 
 export default DIContainer;

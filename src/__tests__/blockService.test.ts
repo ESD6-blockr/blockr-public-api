@@ -2,7 +2,6 @@ import { logger } from "@blockr/blockr-logger";
 import { Request, Response } from "express";
 import * as mocks from "node-mocks-http";
 import { BlockService } from "../services";
-import { DataAccessLayerException } from "../utils/exceptions/dataAccessLayerException";
 import { dataAccessLayerMock, GET_BLOCKS_ERROR_MESSAGE } from "./constants/model.constants";
 
 jest.mock("@blockr/blockr-logger");

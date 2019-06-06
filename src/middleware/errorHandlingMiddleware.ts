@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { DataAccessLayerException } from "../utils/exceptions/dataAccessLayerException";
+import { DataAccessLayerException } from "../exceptions";
 
 export function errorHandlingMiddleware(error: DataAccessLayerException, request: Request,
                                         response: Response, next: NextFunction): void {

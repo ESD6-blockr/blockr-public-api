@@ -5,9 +5,9 @@
   "main": "dist/main.js",
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node ./dist/main.js\"",
-    "build": "tsc -p tsconfig.json && cpy src/utils/transactions.proto dist/utils/",
+    "build": "tsc -p tsconfig.json && cpy src/utils/*.proto dist/utils/",
     "build-watch": "tsc -w -p tsconfig.json",
-    "build:docker": "tsc -p tsconfig.json && tslint --project tsconfig.json",
+    "build:docker": "tsc -p tsconfig.json && tslint --project tsconfig.json && cpy src/utils/*.proto dist/utils/",
     "test": "jest --collectCoverage || exit 0",
     "test:watch": "jest --watchAll",
     "lint": "tslint --project tsconfig.json"
