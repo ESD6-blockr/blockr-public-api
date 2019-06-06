@@ -7,6 +7,7 @@
     "dev": "tsc-watch --onSuccess \"node ./dist/main.js\"",
     "build": "tsc -p tsconfig.json",
     "build-watch": "tsc -w -p tsconfig.json",
+    "build:docker": "tsc -p tsconfig.json && tslint --project tsconfig.json",
     "test": "jest --collectCoverage || exit 0",
     "test:watch": "jest --watchAll",
     "lint": "tslint --project tsconfig.json"
