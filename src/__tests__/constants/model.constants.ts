@@ -1,5 +1,5 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
-import { Block, BlockHeader, BlockType, Transaction, TransactionType, TransactionHeader } from "@blockr/blockr-models";
+import { Block, BlockHeader, BlockType, Transaction, TransactionHeader, TransactionType } from "@blockr/blockr-models";
 import { RpcTransactionService } from "../../services/rpcTransactionService";
 
 export const GET_BLOCKS_ERROR_MESSAGE = "Blocks not found.";

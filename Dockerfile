@@ -12,7 +12,7 @@ FROM node:alpine as FINAL
 WORKDIR /app
 COPY --from=BUILD /dist .
 WORKDIR /
-COPY --from=BUILD /.npmrc /.package*.json ./
+COPY --from=BUILD /.npmrc /package*.json ./
 ENV NODE_ENV=production
 RUN npm install
-ENTRYPOINT [ "node", "dist/main" ]
+ENTRYPOINT [ "node", "app/main" ]
