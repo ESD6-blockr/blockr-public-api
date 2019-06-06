@@ -1,5 +1,5 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
-import { Block, BlockHeader, BlockType, Transaction, TransactionType } from "@blockr/blockr-models";
+import { Block, BlockHeader, BlockType, Transaction, TransactionType, TransactionHeader } from "@blockr/blockr-models";
 import { RpcTransactionService } from "../../services/rpcTransactionService";
 
 export const GET_BLOCKS_ERROR_MESSAGE = "Blocks not found.";
@@ -10,6 +10,7 @@ export const getBlocks = () => {
     return new Set()
         .add(
             new Block(
+                BlockType.GENESIS,
                 new BlockHeader(
                     "1.0.0",
                     1,
@@ -17,7 +18,6 @@ export const getBlocks = () => {
                     1,
                 ),
                 [],
-                BlockType.GENESIS,
             ));
 };
 
@@ -26,10 +26,13 @@ export const getTransactions = () => {
         .add(
             new Transaction(
                 TransactionType.COIN,
-                "RECIPIENT_KEY_TEST",
-                "SENDER_KEY_TEST",
-                1,
-                new Date(),
+                new TransactionHeader(
+                    "RECIPIENT_KEY",
+                    "SENDER_KEY",
+                    1,
+                    new Date(),
+                ),
+                "SIGNATURE",
             ),
         );
 };

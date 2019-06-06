@@ -61,12 +61,13 @@ describe("TransactionService - addTransaction", () => {
         const next = () => { logger.info("test"); };
 
         request.body = {
-            amount: 123,
-            blockHash: "blockhash123",
-            date: "1999-10-10",
-            recipientKey: "recipientKey123",
-            senderKey: "senderKey123",
             signature: "signature123",
+            transactionHeader: {
+                amount: 123,
+                date: "1999-10-10",
+                recipientKey: "recipientKey123",
+                senderKey: "senderKey123",
+            },
             type: "COIN",
         };
 
