@@ -22,7 +22,9 @@ export class TransactionService {
         try {
             logger.info("Adding transaction.");
 
-            response.send(await this.rpcTransactionService.addTransaction(request.body as Transaction));
+            await this.rpcTransactionService.addTransaction(request.body as Transaction);
+
+            response.send("Transaction added succesfully");
 
             next();
         } catch (error) {
