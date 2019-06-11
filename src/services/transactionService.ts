@@ -4,21 +4,27 @@ import { Transaction } from "@blockr/blockr-models";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
 import { inject, injectable } from "inversify";
-import { DataAccessLayerException } from "../utils/exceptions/dataAccessLayerException";
+import { DataAccessLayerException } from "../exceptions";
+import { RpcTransactionService } from "./rpcTransactionService";
 
 @injectable()
 export class TransactionService {
     protected dataAccessLayer: DataAccessLayer;
+    protected rpcTransactionService: RpcTransactionService;
 
-    constructor(@inject(DataAccessLayer) dataAccessLayer: DataAccessLayer) {
+    constructor(@inject(DataAccessLayer) dataAccessLayer: DataAccessLayer,
+                @inject(RpcTransactionService) rpcTransactionService: RpcTransactionService) {
         this.dataAccessLayer = dataAccessLayer;
+        this.rpcTransactionService = rpcTransactionService;
     }
 
     public async addTransactionAsync(request: Request, response: Response, next: NextFunction): Promise<void> {
         try {
             logger.info("Adding transaction.");
 
-            response.send(await this.dataAccessLayer.addTransactionAsync(request.body as Transaction));
+            this.rpcTransactionService.addTransaction(request.body as Transaction);
+
+            response.send("Transaction added succesfully");
 
             next();
         } catch (error) {

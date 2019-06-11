@@ -4,7 +4,7 @@ import { Block } from "@blockr/blockr-models";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
 import { inject, injectable } from "inversify";
-import { DataAccessLayerException } from "../utils/exceptions/dataAccessLayerException";
+import { DataAccessLayerException } from "../exceptions";
 
 @injectable()
 export class BlockService {

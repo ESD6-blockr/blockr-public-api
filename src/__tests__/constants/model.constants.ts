@@ -1,5 +1,6 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
-import { Block, BlockHeader, BlockType, State, Transaction, TransactionType } from "@blockr/blockr-models";
+import { Block, BlockHeader, BlockType, Transaction, TransactionHeader, TransactionType } from "@blockr/blockr-models";
+import { RpcTransactionService } from "../../services/rpcTransactionService";
 
 export const GET_BLOCKS_ERROR_MESSAGE = "Blocks not found.";
 export const GET_TRANSACTIONS_ERROR_MESSAGE = "Transactions not found.";
@@ -9,14 +10,14 @@ export const getBlocks = () => {
     return new Set()
         .add(
             new Block(
+                BlockType.GENESIS,
                 new BlockHeader(
                     "1.0.0",
                     1,
                     new Date(),
                     1,
                 ),
-                new Set(),
-                BlockType.GENESIS,
+                [],
             ));
 };
 
@@ -25,10 +26,13 @@ export const getTransactions = () => {
         .add(
             new Transaction(
                 TransactionType.COIN,
-                "RECIPIENT_KEY_TEST",
-                "SENDER_KEY_TEST",
-                1,
-                new Date(),
+                new TransactionHeader(
+                    "RECIPIENT_KEY",
+                    "SENDER_KEY",
+                    1,
+                    new Date(),
+                ),
+                "SIGNATURE",
             ),
         );
 };
@@ -46,9 +50,13 @@ export const dataAccessLayerMock = {
         }
         return getBlocks();
     },
-    async addTransactionAsync(transaction: Transaction) {
+} as unknown as DataAccessLayer;
+
+export const rpcTransactionService = {
+    async addTransaction(transaction: Transaction) {
         if (!(transaction instanceof Transaction)) {
             throw new Error(ADD_TRANSACTION_ERROR_MESSAGE);
         }
     },
-} as unknown as DataAccessLayer;
+} as unknown as RpcTransactionService;
+
