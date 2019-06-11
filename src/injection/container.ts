@@ -26,8 +26,7 @@ DIContainer.bind<AbstractRouter>("Routers").to(TransactionRouter).inTransientSco
 
 // Bind singletons
 DIContainer.bind<DataSource>("DataSource").toConstantValue(DataSource.MONGO_DB);
-DIContainer.bind<IClientConfiguration>("Configuration")
-    .toConstantValue(new MongoDBConfiguration(`mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}`,
-        `${process.env.MONGODB_DATABASE}`));
+DIContainer.bind<IClientConfiguration>("Configuration").toConstantValue(new MongoDBConfiguration(
+    process.env.DB_CONNECTION_STRING as string, process.env.DB_NAME as string));
 
 export default DIContainer;
