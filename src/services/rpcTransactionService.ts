@@ -2,6 +2,7 @@ import { Transaction } from "@blockr/blockr-models";
 import { loadSync } from "@grpc/proto-loader";
 import { credentials, loadPackageDefinition } from "grpc";
 import { injectable } from "inversify";
+import { logger } from "@blockr/blockr-logger";
 
 const PROTOCOL_PATH = __dirname + `/../utils/transactions.proto`;
 const HOST = "127.0.0.1";
@@ -29,6 +30,12 @@ export class RpcTransactionService {
     }
 
     public addTransaction(transaction: Transaction) {
-        this.client.addTransaction(transaction);
+        this.client.addTransaction(transaction, function(err: any) {
+            if (err) {
+                logger.info(err);
+            } else {
+                logger.info("succed");
+            }
+          });
     }
 }
