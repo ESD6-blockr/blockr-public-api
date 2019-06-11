@@ -79,9 +79,6 @@ describe("TransactionService - addTransaction", () => {
     it("should fail if the validator throws an exception", async () => {
         const next = (error?: Error) => {
             expect(error).toBeDefined();
-            if (error) {
-                expect(error.message).toContain(ADD_TRANSACTION_ERROR_MESSAGE);
-            }
         };
 
         await transactionService.addTransactionAsync(request, response, next);

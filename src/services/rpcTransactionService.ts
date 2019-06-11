@@ -10,8 +10,8 @@ const PORT = "5678";
 @injectable()
 export class RpcTransactionService {
     // No type exists for these proporties as it is defined in the protocol (.proto) file, hence any.
-    private transactionProto: any;
-    private client: any;
+    private readonly transactionProto: any;
+    private readonly client: any;
 
     constructor() {
         const packageDefinition = loadSync(
