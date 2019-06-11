@@ -24,7 +24,7 @@ export class RpcTransactionService {
                 oneofs: true,
             });
         this.transactionProto = loadPackageDefinition(packageDefinition).transactions;
-        this.client = new this.transactionProto.transactionRpcService(`${HOST}:${PORT}`,
+        this.client = new this.transactionProto.TransactionRpcService(`${HOST}:${PORT}`,
                                                                         credentials.createInsecure());
     }
 
