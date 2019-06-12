@@ -1,3 +1,4 @@
+import { logger } from "@blockr/blockr-logger";
 import { Transaction } from "@blockr/blockr-models";
 import { loadSync } from "@grpc/proto-loader";
 import { credentials, loadPackageDefinition } from "grpc";
@@ -29,6 +30,13 @@ export class RpcTransactionService {
     }
 
     public addTransaction(transaction: Transaction) {
-        this.client.addTransaction(transaction);
+        this.client.addTransaction(transaction, (err: Error) => {
+            if (err) {
+                logger.error(err);
+                return;
+            }
+            
+            logger.info("Transaction sending succeeded.");
+          });
     }
 }
