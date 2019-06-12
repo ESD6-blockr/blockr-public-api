@@ -34,7 +34,7 @@ export class RpcTransactionService {
             if (err) {
                 logger.error(err);
             } else {
-                logger.info("succeed");
+                logger.info("Transaction sending succeeded.");
             }
           });
     }
