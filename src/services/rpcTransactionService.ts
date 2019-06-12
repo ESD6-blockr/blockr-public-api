@@ -30,7 +30,7 @@ export class RpcTransactionService {
     }
 
     public addTransaction(transaction: Transaction) {
-        this.client.addTransaction(transaction, (err: any) => {
+        this.client.addTransaction(transaction, (err: Error) => {
             if (err) {
                 logger.error(err);
             } else {
