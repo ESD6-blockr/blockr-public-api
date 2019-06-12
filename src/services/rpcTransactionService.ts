@@ -33,9 +33,10 @@ export class RpcTransactionService {
         this.client.addTransaction(transaction, (err: Error) => {
             if (err) {
                 logger.error(err);
-            } else {
-                logger.info("Transaction sending succeeded.");
+                return;
             }
+            
+            logger.info("Transaction sending succeeded.");
           });
     }
 }
