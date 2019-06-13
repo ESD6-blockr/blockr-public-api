@@ -1,6 +1,6 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
 import { logger } from "@blockr/blockr-logger";
-import { Transaction, TransactionType, TransactionHeader } from "@blockr/blockr-models";
+import { Transaction } from "@blockr/blockr-models";
 import { plainToClass } from "class-transformer";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
