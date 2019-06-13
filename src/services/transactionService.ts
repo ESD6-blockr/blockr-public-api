@@ -27,7 +27,7 @@ export class TransactionService {
             const transaction: Transaction = plainToClass<Transaction, any>(Transaction,
                 request.body as object);
 
-            // Put an extra Object around the Transaction, to make sure Proto can read it
+            // Put an extra Object around the Transaction, to make sure Proto can read it.
             const newTransaction = { Transaction: transaction };
 
             this.rpcTransactionService.addTransaction(newTransaction);
