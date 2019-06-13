@@ -29,7 +29,7 @@ export class RpcTransactionService {
                                                                         credentials.createInsecure());
     }
 
-    public addTransaction(transaction: Transaction) {
+    public addTransaction(transaction: object) {
         this.client.addTransaction(transaction, (err: Error) => {
             if (err) {
                 logger.error(err);

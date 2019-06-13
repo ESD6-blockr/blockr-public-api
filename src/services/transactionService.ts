@@ -1,6 +1,7 @@
 import { DataAccessLayer } from "@blockr/blockr-data-access";
 import { logger } from "@blockr/blockr-logger";
 import { Transaction } from "@blockr/blockr-models";
+import { plainToClass } from "class-transformer";
 import { NextFunction } from "connect";
 import { Request, Response } from "express";
 import { inject, injectable } from "inversify";
@@ -22,9 +23,16 @@ export class TransactionService {
         try {
             logger.info("Adding transaction.");
 
-            this.rpcTransactionService.addTransaction(request.body as Transaction);
+            // Create a Transaction object from a regular Object.
+            const transaction: Transaction = plainToClass<Transaction, any>(Transaction,
+                request.body as object);
 
-            response.send("Transaction added succesfully");
+            // Put an extra Object around the Transaction, to make sure Proto can read it.
+            const newTransaction = { Transaction: transaction };
+
+            this.rpcTransactionService.addTransaction(newTransaction);
+
+            response.send("Transaction added succesfully.");
 
             next();
         } catch (error) {
