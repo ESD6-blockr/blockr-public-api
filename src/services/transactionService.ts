@@ -32,7 +32,7 @@ export class TransactionService {
 
             this.rpcTransactionService.addTransaction(newTransaction);
 
-            response.send("Transaction added succesfully");
+            response.send("Transaction added succesfully.");
 
             next();
         } catch (error) {
