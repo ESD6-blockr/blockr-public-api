@@ -1,8 +1,8 @@
 import { DataAccessLayer, DataSource, IClientConfiguration, MongoDBConfiguration } from "@blockr/blockr-data-access";
 import { Container } from "inversify";
-import { BlockRouter, TransactionRouter } from "../routers";
+import { BlockRouter, StateRouter, TransactionRouter } from "../routers";
 import { AbstractRouter } from "../routers/abstractRouter";
-import { BlockService, TransactionService } from "../services";
+import { BlockService, StateService, TransactionService } from "../services";
 import { RpcTransactionService } from "../services/rpcTransactionService";
 
 /**
@@ -20,9 +20,11 @@ DIContainer.bind<DataAccessLayer>(DataAccessLayer).toSelf().inTransientScope();
 DIContainer.bind<BlockService>(BlockService).toSelf().inTransientScope();
 DIContainer.bind<TransactionService>(TransactionService).toSelf().inTransientScope();
 DIContainer.bind<RpcTransactionService>(RpcTransactionService).toSelf().inTransientScope();
+DIContainer.bind<StateService>(StateService).toSelf().inTransientScope();
 
 DIContainer.bind<AbstractRouter>("Routers").to(BlockRouter).inTransientScope();
 DIContainer.bind<AbstractRouter>("Routers").to(TransactionRouter).inTransientScope();
+DIContainer.bind<AbstractRouter>("Routers").to(StateRouter).inTransientScope();
 
 // Bind singletons
 DIContainer.bind<DataSource>("DataSource").toConstantValue(DataSource.MONGO_DB);
