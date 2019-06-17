@@ -16,7 +16,7 @@ export class StateRouter extends AbstractRouter {
     }
 
     public configure(): void {
-        this.router.route("/:publicKey").get(this.getStateByPublicKey);
+        this.router.route("/:publicKey").get(this.getStateByPublicKey());
     }
 
     private getStateByPublicKey(): (request: Request, response: Response, next: NextFunction) => void {
