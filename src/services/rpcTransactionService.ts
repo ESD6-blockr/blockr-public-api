@@ -5,8 +5,8 @@ import { credentials, loadPackageDefinition } from "grpc";
 import { injectable } from "inversify";
 
 const PROTOCOL_PATH = __dirname + `/../utils/transactions.proto`;
-const HOST = "127.0.0.1";
-const PORT = "5678";
+const HOST = process.env.RPC_SERVER_HOST || "127.0.0.1";
+const PORT = process.env.RPC_SERVER_PORT || "5678";
 
 @injectable()
 export class RpcTransactionService {
